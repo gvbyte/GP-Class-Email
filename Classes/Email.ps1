@@ -1,12 +1,12 @@
 class Email {
-    static [void] SendHTML($to, $from, $subject, $html, $smtp){
+    static [void] SendHTML($to, $from, $subject, $html, $Attachments, $smtp){
         try {
-            Send-MailMessage -To $to -From $from -Attachments $html -Subject $subject -Body $(Get-Content $html -Raw) -BodyAsHtml -SmtpServer $smtp;
-            Write-Host -ForegroundColor Green "[!} Email Sent to: $($To) | From: $($from)"
+            Send-MailMessage -To $to -From $from -Attachments $Attachments -Subject $subject -Body $html -BodyAsHtml -SmtpServer $smtp -ErrorAction Stop;
+            Write-Host -ForegroundColor Green "Email Sent to: $($To) | From: $($from)"
         }
         catch {
-           Write-Warning "[!} Failed to send email:`n $($Error)";
-           Read-Host "[*] Press ENTER to continue"
+           Write-Warning "[!} Failed to send email:`n$($Error)";
+           Read-Host "Press ENTER to continue"
         }
     }
 }
