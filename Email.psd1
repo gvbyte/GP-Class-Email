@@ -5,5 +5,5 @@
     Author            = 'GVBYTE'
     Description       = 'GVBYTE custom Email classes and functions'
     PowerShellVersion = '5.1'
-    FunctionsToExport = @('Send-Email','Send-EmailPrompt','Send-EmailHTML')
+    FunctionsToExport = @('Send-Email','Send-EmailPrompt','Send-EmailHTML','Send-EmailTestPrompt')
 }
