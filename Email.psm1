@@ -1,9 +1,6 @@
 . "$PSScriptRoot\Classes\Email.ps1"
 function Send-Email ($To, $From, $Subject, [string]$Html, $Attachments, $Smtp) {[Email]::SendHTML($To, $From, $Subject, $Html, $Attachments, $Smtp);}
-function Send-EmailPrompt () {[Email]::SendHTML($(Read-Host "To"), $(Read-Host "From"), $(Read-Host "Subject"), $(Read-Host "Html"), $(Read-Host "Attachments"), $(Read-Host "Smtp"));}
 function Send-EmailHTML ($To, $From, $Subject, $Smtp) {[Email]::SendHTML($To, $From, $Subject, $(Get-Content -Path ".\var\html\PatchScheduleReport.html" -Raw), ".\var\html\PatchScheduleReport.html", $Smtp)}
-function Send-EmailTest ($Subject){[Email]::Test($Subject);}
-function Send-EmailTestPrompt {Send-EmailTest -Subject $(Read-Host -Prompt "Subject") }
-function Send-EmailToTeam([string]$Subject) {[Email]::SendToTeam($Subject);}
-
-function Send-EmailToTeamPrompt {Send-EmailToTeam -Subject $(Read-Host -Prompt "Subject")}
+function Send-EmailReport([string]$To, [string]$Report, [string]$Day) {[Email]::SendReport($To, $Report, $Day);}
+function Send-EmailReportTeam([string]$Report, [string]$Day) {[Email]::SendReport("TEAM", $Report, $Day);}
+function Send-EmailReportTest([string]$Report, [string]$Day) {[Email]::SendReport("TEST", $Report, $Day);}

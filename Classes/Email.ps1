@@ -10,16 +10,21 @@ class Email {
            Read-Host "Press ENTER to continue"
         }
     }
-    static [void] Test($Subject){
-        Trace-Info -module "Email"-message "Test Email executed";
-        $Config = (Get-Content .\config.json -Raw | ConvertFrom-Json);
-        [Email]::SendHTML(($Config.Email), "DoNotReply@$($Config.Domain)", $Subject, $(Get-Content -Path ".\var\html\PatchScheduleReport.html" -Raw), ".\var\html\PatchScheduleReport.html", ($Config.SMTP))    
+
+    static [void] SendReport([string]$To, [string]$Report, [string]$Day) {
+        $Email = '';
+        $Config = (Get-Content '.\etc\Config\config.json' -Raw | ConvertFrom-Json);
+        switch ($To) {
+            'TEST' {$Email = $Config.Email}
+            'TEAM' {$Email = $Config.Distro}
+            Default {$Email = $Config.Email}
+        }
+        [Email]::SendHTML("$($Email)", "DoNotReply@$($Config.Domain)", "[Daily] $($Report) Report - $($Day)", $(Get-Content -Path ".\var\html\PatchScheduleReport.html" -Raw), ".\var\html\PatchScheduleReport.html", ($Config.SMTP))
+    }
+
+    static [void] HTML(){}
+
+    static [void] SelectAttachments(){
         
     }
-    static [void] SendToTeam($Subject) {
-        $Config = (Get-Content .\config.json -Raw | ConvertFrom-Json);
-        [Email]::SendHTML("$($Config.Distro)@$($Config.Domain)", "DoNotReply@$($Config.Domain)", $Subject, $(Get-Content -Path ".\var\html\PatchScheduleReport.html" -Raw), ".\var\html\PatchScheduleReport.html", ($Config.SMTP))
-    }
-    static [void] HTML(){}
-    static [void] Attachments(){}
 }
