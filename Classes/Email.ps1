@@ -3,7 +3,7 @@ class Email {
         try {
             Send-MailMessage -To $to -From $from -Attachments $Attachments -Subject $subject -Body $html -BodyAsHtml -SmtpServer $smtp -ErrorAction Stop;
             Write-Host -ForegroundColor Green "Email Sent to: $($To) | From: $($from)"
-            Trace-Success -module "Email"-message "Email sent";
+            Write-LogSuccess -module "Email"-message "Email sent";
         }
         catch {
            Write-Warning "[!} Failed to send email:`n$($Error)";
